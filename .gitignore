@@ -1,0 +1,8 @@
+*.suo
+*.user
+lib/
+src/Capoccione.Test/bin/
+src/Capoccione.Test/obj
+src/Capoccione/bin/
+src/Capoccione/obj/
+src/TestResults
