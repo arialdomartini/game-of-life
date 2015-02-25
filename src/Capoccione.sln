@@ -5,12 +5,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capoccione.Test", "Capoccio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Capoccione", "Capoccione\Capoccione.csproj", "{F0CC7CC1-5619-48CD-B410-E3E8CC9CCFFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapoccioneTest", "CapoccioneTest\CapoccioneTest.csproj", "{4EEB4709-A55D-4CDF-91C2-8F351B2DD16D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4EEB4709-A55D-4CDF-91C2-8F351B2DD16D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EEB4709-A55D-4CDF-91C2-8F351B2DD16D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EEB4709-A55D-4CDF-91C2-8F351B2DD16D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EEB4709-A55D-4CDF-91C2-8F351B2DD16D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EAFB6471-92EA-43AA-BAB7-1DAA4B452994}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EAFB6471-92EA-43AA-BAB7-1DAA4B452994}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAFB6471-92EA-43AA-BAB7-1DAA4B452994}.Release|Any CPU.ActiveCfg = Release|Any CPU

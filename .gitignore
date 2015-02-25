@@ -1,8 +1,10 @@
 *.suo
 *.user
+*.userprefs
 lib/
-src/Capoccione.Test/bin/
-src/Capoccione.Test/obj
+src/CapoccioneTest/bin/
+src/CapoccioneTest/obj
 src/Capoccione/bin/
 src/Capoccione/obj/
 src/TestResults
+src/packages
