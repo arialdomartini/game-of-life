@@ -12,14 +12,14 @@ Target "Clean" (fun _ ->
     ignore(Shell.Exec("git", "clean -x -d -f"))
 )
 
-Target "BuildApp" (fun _ ->
+Target "Compile" (fun _ ->
     !! "src/**/*.csproj"
     |> MSBuildRelease buildDir "Build"
     |> Log "AppBuild-Output: "
 )
 
 Target "Test" (fun _ ->  
-    !! ("src/**/*.Test.dll")
+    !! ("build/*.Test.dll")
         |> NUnit (fun p -> 
             {p with
                 DisableShadowCopy = true; 
@@ -27,9 +27,8 @@ Target "Test" (fun _ ->
 )
 
 // Build order
-"Clean"
-  ==> "Deps"
-  ==> "BuildApp"
+"Deps"
+  ==> "Compile"
   ==> "Test"
 
 RunTargetOrDefault "Test"
