@@ -2,9 +2,7 @@
 *.user
 *.userprefs
 lib/
-src/CapoccioneTest/bin/
-src/CapoccioneTest/obj
-src/Capoccione/bin/
-src/Capoccione/obj/
-src/TestResults
-src/packages
+src/**/bin/
+src/**/obj
+packages/**
+TestResult.xml

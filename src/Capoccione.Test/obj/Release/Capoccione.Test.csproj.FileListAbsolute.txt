@@ -1,5 +1,0 @@
-C:\prg\capoccione\src\Capoccione.Test\obj\Release\Capoccione.Test.csprojResolveAssemblyReference.cache
-C:\prg\capoccione\build\Capoccione.Test.dll
-C:\prg\capoccione\build\Capoccione.Test.pdb
-C:\prg\capoccione\src\Capoccione.Test\obj\Release\Capoccione.Test.dll
-C:\prg\capoccione\src\Capoccione.Test\obj\Release\Capoccione.Test.pdb
