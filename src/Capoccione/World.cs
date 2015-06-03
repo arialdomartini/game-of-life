@@ -1,83 +1,58 @@
 using System.Collections.Generic;
 using System;
-using System.Linq;
-using System.IO;
 
 namespace Capoccione
 {
 
-    public class World
+    public static class World
     {
-        List<Cell> _cells;
-
-        public override bool Equals(object obj)
-        {
-            var other = obj as World;
-            foreach(var cell in _cells)
-            {
-                if(!other.Contains(cell))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        public World(List<Cell> cells)
-        {
-            _cells = cells;
-            
-        }
-
-        public void Evolve()
+        public static List<Cell> Evolve(List<Cell> generation)
         {
             var newGeneration = new List<Cell>();
-            foreach(var cell in _cells)
+            foreach(var cell in generation)
             {
-                if(!ShouldDie(cell))
+                if(!ShouldDie(cell, generation))
                 {
                     newGeneration.Add(cell);    
                 }
             }
 
-            foreach(var cell in _cells)
+            foreach(var cell in generation)
             {
                 foreach(var neighbor in cell.Neighbors())
                 {
-                    if(ShouldGetToLife(neighbor))
+                    if(ShouldGetToLife(neighbor, generation))
                     {
-                        newGeneration.Add(neighbor);
+                        if( ! newGeneration.Contains(neighbor))
+                        {
+                            newGeneration.Add(neighbor);
+                        }
                     }
 
                 }
             }
-            _cells = newGeneration;
+            return newGeneration;
         }
 
-        public int CountNeighbors(Cell cell)
+        public static int CountNeighbors(Cell cell, List<Cell> generation)
         {
-            return cell.Neighbors().RemoveAll(Contains);
+            return cell.Neighbors().RemoveAll(c => World.Contains(c, generation));
         }
 
-        public bool Contains(Cell cell)
+        public static bool Contains(Cell cell, List<Cell> generation)
         {
-            return _cells.Contains(cell);
+            return generation.Contains(cell);
         }
 
-        public bool ShouldDie(Cell cell)
+        public static bool ShouldDie(Cell cell, List<Cell> generation)
         {
-            var neighbors = CountNeighbors(cell);
+            var neighbors = World.CountNeighbors(cell, generation);
             return neighbors != 2;
         }
 
-        public bool ShouldGetToLife(Cell cell)
+        public static bool ShouldGetToLife(Cell cell, List<Cell> generation)
         {
-            return CountNeighbors(cell) == 3;
+            return CountNeighbors(cell, generation) == 3;
         }
     }
 }
