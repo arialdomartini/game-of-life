@@ -97,16 +97,64 @@ namespace Capoccione.Test
         }
 
 
+        [Test]
+        public void an_already_alive_cell_should_not_get_to_life_again()
+        {
+            var world = new World(new List<Cell>()
+                {
+                    new Cell(9, 9),
+                    new Cell(10, 9),
+                    new Cell(11, 9),
+                });
+
+            world.ShouldGetToLife(new Cell(9, 9)).Should().BeFalse();
+        }
+
+
+        [Test]
+        public void an_isolated_point_should_not_bring_life_to_a_cell()
+        {
+            var world = new World(new List<Cell>()
+                {
+                    new Cell(9, 9),
+                    new Cell(10, 9),
+                    new Cell(11, 9),
+                });
+
+            world.ShouldGetToLife(new Cell(100, 100)).Should().BeFalse();
+        }
+
+        [Test]
+        public void a_point_surrounded_by_3_cells_should_get_to_life()
+        {
+            var world = new World(new List<Cell>()
+                {
+                    new Cell(9, 9),
+                    new Cell(10, 9),
+                    new Cell(11, 9),
+                });
+
+            world.ShouldGetToLife(new Cell(10, 10)).Should().BeTrue();
+        }
 
         [Test]
         public void evolve_test()
         {
-            var cell = new Cell(10, 10);
-            var world = new World(new List<Cell>());
+            var world = new World(new List<Cell>()
+                {
+                    new Cell(10, 8),
+                    new Cell(10, 9),
+                    new Cell(10, 10),
+                });
+            var expected = new World(new List<Cell>()
+                {
+                    new Cell(9, 9), new Cell(10, 9), new Cell(11, 9)
+                });
 
             world.Evolve();
 
-            world.Contains(cell).Should().BeFalse();
+            world.Should().Be(expected);
+            expected.Should().Be(world);
         }
     }
 }
