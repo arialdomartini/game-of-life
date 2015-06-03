@@ -1,37 +1,22 @@
 using System.Collections.Generic;
-using System;
+using System.Linq;
+using System.Xml.Schema;
 
 namespace Capoccione
 {
-
     public static class World
     {
         public static List<Cell> Evolve(List<Cell> generation)
         {
             var newGeneration = new List<Cell>();
-            foreach(var cell in generation)
-            {
-                if(!ShouldDie(cell, generation))
-                {
-                    newGeneration.Add(cell);    
-                }
-            }
 
-            foreach(var cell in generation)
-            {
-                foreach(var neighbor in cell.Neighbors())
-                {
-                    if(ShouldGetToLife(neighbor, generation))
-                    {
-                        if( ! newGeneration.Contains(neighbor))
-                        {
-                            newGeneration.Add(neighbor);
-                        }
-                    }
+            var survivors = from cell in generation where !ShouldDie(cell, generation) select cell;
 
-                }
-            }
-            return newGeneration;
+            var newBorn = from neighbors in (from cell in generation
+                select cell.Neighbors()) from neighbor in neighbors
+                    where ShouldGetToLife(neighbor, generation) && !newGeneration.Contains(neighbor)
+                select neighbor;
+            return survivors.Union(newBorn).ToList();
         }
 
         public static int CountNeighbors(Cell cell, List<Cell> generation)
@@ -46,8 +31,7 @@ namespace Capoccione
 
         public static bool ShouldDie(Cell cell, List<Cell> generation)
         {
-            var neighbors = World.CountNeighbors(cell, generation);
-            return neighbors != 2;
+            return CountNeighbors(cell, generation) != 2;
         }
 
         public static bool ShouldGetToLife(Cell cell, List<Cell> generation)
