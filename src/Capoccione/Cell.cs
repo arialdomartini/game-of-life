@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 
 namespace Capoccione
 {
@@ -18,6 +20,20 @@ namespace Capoccione
             Y = y;
         }
 
+        public List<Cell> Neighbors()
+        {
+            return new List<Cell>{
+                new Cell(X-1, Y-1),
+                new Cell(X, Y-1),
+                new Cell(X+1, Y-1),
+                new Cell(X-1, Y),
+                new Cell(X+1, Y),
+                new Cell(X-1, Y+1),
+                new Cell(X, Y+1),
+                new Cell(X+1, Y+1),
+            };
+        }
+   
         public override bool Equals(object obj)
         {
             var other = obj as Cell;
