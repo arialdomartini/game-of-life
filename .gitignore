@@ -6,3 +6,4 @@ src/**/bin/
 src/**/obj
 packages/**
 TestResult.xml
+build/**
