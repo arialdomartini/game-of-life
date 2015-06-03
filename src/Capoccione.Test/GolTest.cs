@@ -32,7 +32,7 @@ namespace Capoccione.Test
                 new Cell(1, 2), new Cell(2, 2)
             };
 
-            World.CountNeighbors(new Cell(2, 2), generation).Should().Be(4);
+            World.CountAliveNeighbors(new Cell(2, 2), generation).Should().Be(4);
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace Capoccione.Test
 
             var generation = new List<Cell>(){ cell };
 
-            World.Contains(cell, generation).Should().BeTrue();
+            generation.Contains(cell).Should().BeTrue();
         }
 
         [Test]

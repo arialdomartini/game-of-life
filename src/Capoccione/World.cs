@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Schema;
 
 namespace Capoccione
 {
@@ -10,33 +8,37 @@ namespace Capoccione
         {
             var newGeneration = new List<Cell>();
 
-            var survivors = from cell in generation where !ShouldDie(cell, generation) select cell;
-
-            var newBorn = from neighbors in (from cell in generation
-                select cell.Neighbors()) from neighbor in neighbors
-                    where ShouldGetToLife(neighbor, generation) && !newGeneration.Contains(neighbor)
-                select neighbor;
-            return survivors.Union(newBorn).ToList();
+            foreach(var cell in generation)
+            {
+                if(!ShouldDie(cell, generation))
+                {
+                    newGeneration.Add(cell);    
+                }
+                foreach(var neighbor in cell.Neighbors())
+                {
+                    if(ShouldGetToLife(neighbor, generation) && ! newGeneration.Contains(neighbor))
+                    {
+                        newGeneration.Add(neighbor);
+                    }
+                }
+            }
+           return newGeneration;
         }
 
-        public static int CountNeighbors(Cell cell, List<Cell> generation)
+        public static int CountAliveNeighbors(Cell cell, List<Cell> generation)
         {
-            return cell.Neighbors().RemoveAll(c => World.Contains(c, generation));
+            return cell.Neighbors().RemoveAll(c => generation.Contains(c));
         }
 
-        public static bool Contains(Cell cell, List<Cell> generation)
-        {
-            return generation.Contains(cell);
-        }
 
         public static bool ShouldDie(Cell cell, List<Cell> generation)
         {
-            return CountNeighbors(cell, generation) != 2;
+            return CountAliveNeighbors(cell, generation) != 2;
         }
 
         public static bool ShouldGetToLife(Cell cell, List<Cell> generation)
         {
-            return CountNeighbors(cell, generation) == 3;
+            return CountAliveNeighbors(cell, generation) == 3;
         }
     }
 }
