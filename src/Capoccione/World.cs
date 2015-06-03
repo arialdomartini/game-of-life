@@ -32,7 +32,8 @@ namespace Capoccione
 
         public bool ShouldDie(Cell cell)
         {
-            return this.CountNeighbors(cell) < 3;
+            var neighbors = CountNeighbors(cell);
+            return neighbors != 2;
         }
     }
 }

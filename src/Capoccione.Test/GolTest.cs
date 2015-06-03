@@ -49,10 +49,54 @@ namespace Capoccione.Test
         public void a_cell_alone_dies()
         {
             var cell = new Cell(10, 10);
-            var world = new World(new List<Cell>());
+            var world = new World(new List<Cell>()
+            {
+                new Cell(12, 10)
+            });
 
             world.ShouldDie(cell).Should().BeTrue();
         }
+
+        [Test]
+        public void a_cell_can_die_of_loniness_with_only_1_neighbor()
+        {
+            var cell = new Cell(10, 10);
+            var world = new World(new List<Cell>()
+            {
+                new Cell(10, 9)
+            });
+
+            world.ShouldDie(cell).Should().BeTrue();
+        }
+
+        [Test]
+        public void a_cell_survive_with_2_neighbors()
+        {
+            var cell = new Cell(10, 10);
+            var world = new World(new List<Cell>()
+            {
+                new Cell(10, 9),
+                new Cell(9, 10)
+            });
+
+            world.ShouldDie(cell).Should().BeFalse();
+        }
+
+        [Test]
+        public void a_cell_survive_suffocated_by_3_neighbors_dies()
+        {
+            var cell = new Cell(10, 10);
+            var world = new World(new List<Cell>()
+                {
+                    new Cell(9, 9),
+                    new Cell(10, 9),
+                    new Cell(11, 9),
+                });
+
+            world.ShouldDie(cell).Should().BeTrue();
+        }
+
+
 
         [Test]
         public void evolve_test()
